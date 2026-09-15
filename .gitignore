@@ -1,0 +1,8 @@
+# Root-level gitignore - safety net in case anything is added outside
+# backend/ or frontend/ later. Each subfolder also has its own .gitignore.
+
+node_modules/
+.env
+.env.local
+*.log
+.DS_Store

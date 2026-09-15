@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+/* Custom theme tokens for the Smart Blood Donation System (Peshawar).
+   Using Tailwind v4's CSS-first @theme block instead of a JS config file. */
+@theme {
+  --color-brand-red: #C41E3A;
+  --color-brand-red-dark: #9B1830;
+  --color-brand-maroon: #7A1B2B;
+  --color-brand-maroon-dark: #5E1420;
+  --color-brand-dark: #1A1A1A;
+  --color-status-available: #16A34A;
+  --color-status-unavailable: #D97706;
+  --color-status-urgent: #DC2626;
+}
+
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Thin custom scrollbar for the sidebar */
+.sidebar-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+.sidebar-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
