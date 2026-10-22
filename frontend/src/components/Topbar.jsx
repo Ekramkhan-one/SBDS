@@ -1,12 +1,13 @@
 // src/components/Topbar.jsx
-// Top header bar: search, quick WhatsApp contact, notifications, user menu.
+// Top header bar: menu button (mobile), search, quick WhatsApp contact,
+// notifications, user menu.
 
 import { useState } from 'react';
-import { Search, MessageCircle, Bell, ChevronDown } from 'lucide-react';
+import { Search, MessageCircle, Bell, ChevronDown, Menu } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
-export default function Topbar({ notificationCount = 0 }) {
+export default function Topbar({ notificationCount = 0, onMenuClick = () => {} }) {
   const { user, logout } = useAuth();
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
@@ -22,21 +23,38 @@ export default function Topbar({ notificationCount = 0 }) {
   };
 
   return (
-    <header className="bg-white border-b border-gray-200 px-6 py-3 flex items-center gap-4">
-      <form onSubmit={handleSearch} className="flex-1 max-w-xl">
+    <header className="bg-white border-b border-gray-200 px-3 sm:px-6 py-3 flex items-center gap-2 sm:gap-4 sticky top-0 z-20">
+      {/* Hamburger: opens the sidebar drawer below lg */}
+      <button
+        type="button"
+        onClick={onMenuClick}
+        aria-label="Open menu"
+        className="lg:hidden p-2 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors shrink-0"
+      >
+        <Menu size={22} />
+      </button>
+
+      <form onSubmit={handleSearch} className="flex-1 max-w-xl min-w-0">
         <div className="relative">
           <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
           <input
             type="text"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
+            placeholder="Search donors..."
+            className="w-full border border-gray-300 rounded-lg pl-9 pr-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-red sm:hidden"
+          />
+          <input
+            type="text"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search donors by blood group, area or BRT station..."
-            className="w-full border border-gray-300 rounded-lg pl-9 pr-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-red"
+            className="w-full border border-gray-300 rounded-lg pl-9 pr-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-red hidden sm:block"
           />
         </div>
       </form>
 
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-1 sm:gap-3 shrink-0">
         <a
           href="https://wa.me/"
           target="_blank"
@@ -62,7 +80,7 @@ export default function Topbar({ notificationCount = 0 }) {
         <div className="relative">
           <button
             onClick={() => setMenuOpen((prev) => !prev)}
-            className="flex items-center gap-2 hover:bg-gray-50 rounded-lg px-2 py-1 transition-colors"
+            className="flex items-center gap-2 hover:bg-gray-50 rounded-lg px-1 sm:px-2 py-1 transition-colors"
           >
             <div className="w-9 h-9 rounded-full bg-brand-maroon text-white flex items-center justify-center font-semibold text-sm">
               {user?.fullName?.charAt(0) || '?'}
@@ -73,7 +91,7 @@ export default function Topbar({ notificationCount = 0 }) {
               </p>
               <p className="text-xs text-gray-400 leading-tight capitalize">{user?.role || ''}</p>
             </div>
-            <ChevronDown size={16} className="text-gray-400" />
+            <ChevronDown size={16} className="text-gray-400 hidden sm:block" />
           </button>
 
           {menuOpen && (

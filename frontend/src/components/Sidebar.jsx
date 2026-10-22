@@ -1,7 +1,12 @@
 // src/components/Sidebar.jsx
-// Persistent left sidebar navigation, matching the dashboard mockup:
+// Left sidebar navigation, matching the dashboard mockup:
 // logo header, nav links with icons, active-state highlighting,
 // and a bottom "In Emergency?" CTA box.
+//
+// Responsive behaviour:
+//   - lg and up: always-visible, sticky sidebar.
+//   - below lg:  off-canvas drawer controlled by the isOpen / onClose props
+//     (DashboardLayout owns the state, the Topbar hamburger opens it).
 
 import { NavLink } from 'react-router-dom';
 import {
@@ -15,7 +20,8 @@ import {
   BarChart3,
   Settings,
   HelpCircle,
-  Droplet
+  Droplet,
+  X
 } from 'lucide-react';
 
 const navItems = [
@@ -31,19 +37,33 @@ const navItems = [
   { to: '/help', label: 'Help & Support', icon: HelpCircle }
 ];
 
-export default function Sidebar({ user }) {
+export default function Sidebar({ user, isOpen = false, onClose = () => {} }) {
   return (
-    <aside className="w-64 bg-brand-maroon text-white flex flex-col h-screen sticky top-0">
+    <aside
+      className={`w-64 shrink-0 bg-brand-maroon text-white flex flex-col
+        fixed inset-y-0 left-0 z-40 transition-transform duration-200 ease-in-out
+        ${isOpen ? 'translate-x-0' : '-translate-x-full'}
+        lg:translate-x-0 lg:sticky lg:top-0 lg:bottom-auto lg:h-screen lg:z-auto`}
+    >
       {/* Logo header */}
       <div className="px-5 py-5 flex items-center gap-3 border-b border-white/10">
         <div className="bg-white/10 p-2 rounded-lg">
           <Droplet size={22} className="text-white" fill="white" fillOpacity={0.9} />
         </div>
-        <div className="leading-tight">
+        <div className="leading-tight flex-1">
           <p className="font-bold text-sm">SMART BLOOD</p>
           <p className="font-bold text-sm">DONATION SYSTEM</p>
           <p className="text-[10px] text-white/60 tracking-wide">FOR PESHAWAR</p>
         </div>
+        {/* Close button - only shown while it works as a drawer */}
+        <button
+          type="button"
+          onClick={onClose}
+          aria-label="Close menu"
+          className="lg:hidden p-1.5 rounded-lg text-white/80 hover:bg-white/10"
+        >
+          <X size={20} />
+        </button>
       </div>
 
       {/* Nav links */}
@@ -54,6 +74,7 @@ export default function Sidebar({ user }) {
             <NavLink
               key={to}
               to={to}
+              onClick={onClose}
               className={({ isActive }) =>
                 `flex items-center justify-between gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors ${
                   isActive
@@ -81,6 +102,7 @@ export default function Sidebar({ user }) {
         <p className="text-xs text-white/80 mt-0.5">Every Second Counts</p>
         <NavLink
           to="/emergency"
+          onClick={onClose}
           className="block text-center bg-white text-brand-red font-semibold text-sm mt-3 py-2 rounded-lg hover:bg-gray-100 transition-colors"
         >
           Request Blood Now
