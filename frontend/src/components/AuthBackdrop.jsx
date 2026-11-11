@@ -7,7 +7,7 @@
 export default function AuthBackdrop() {
   return (
     <div className="absolute inset-0 overflow-hidden -z-10">
-      <div className="absolute inset-0 bg-gradient-to-b from-pink-50 via-red-50 to-red-100" />
+      <div className="absolute inset-0 bg-gradient-to-b from-brand-blush via-white to-brand-rose" />
 
       {/* Skyline silhouette along the bottom, evoking Peshawar's forts/minarets */}
       <svg

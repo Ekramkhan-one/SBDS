@@ -40,7 +40,7 @@ const navItems = [
 export default function Sidebar({ user, isOpen = false, onClose = () => {} }) {
   return (
     <aside
-      className={`w-64 shrink-0 bg-brand-maroon text-white flex flex-col
+      className={`w-64 shrink-0 bg-gradient-to-b from-brand-maroon to-brand-maroon-dark text-white flex flex-col
         fixed inset-y-0 left-0 z-40 transition-transform duration-200 ease-in-out
         ${isOpen ? 'translate-x-0' : '-translate-x-full'}
         lg:translate-x-0 lg:sticky lg:top-0 lg:bottom-auto lg:h-screen lg:z-auto`}
@@ -76,9 +76,9 @@ export default function Sidebar({ user, isOpen = false, onClose = () => {} }) {
               to={to}
               onClick={onClose}
               className={({ isActive }) =>
-                `flex items-center justify-between gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors ${
+                `flex items-center justify-between gap-3 px-3 py-2.5 rounded-xl text-sm transition-colors ${
                   isActive
-                    ? 'bg-white text-brand-maroon font-semibold'
+                    ? 'bg-white text-brand-maroon font-semibold shadow-soft'
                     : 'text-white/85 hover:bg-white/10'
                 }`
               }
@@ -97,7 +97,7 @@ export default function Sidebar({ user, isOpen = false, onClose = () => {} }) {
       </nav>
 
       {/* Emergency CTA box */}
-      <div className="m-3 bg-brand-red rounded-xl p-4">
+      <div className="m-3 bg-gradient-to-br from-brand-red to-brand-red-dark rounded-2xl p-4 shadow-glow">
         <p className="font-semibold text-sm">In Emergency?</p>
         <p className="text-xs text-white/80 mt-0.5">Every Second Counts</p>
         <NavLink

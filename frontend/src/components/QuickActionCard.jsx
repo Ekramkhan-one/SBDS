@@ -9,15 +9,16 @@ export default function QuickActionCard({ icon: Icon, iconBg, iconColor, title, 
   return (
     <Link
       to={to}
-      className="bg-white border border-gray-200 rounded-xl p-4 hover:shadow-md transition-shadow block"
+      className="group bg-white border border-gray-100 rounded-2xl p-5 shadow-soft hover:-translate-y-1 hover:shadow-lift block"
     >
-      <div className={`w-10 h-10 rounded-lg flex items-center justify-center mb-3 ${iconBg}`}>
-        <Icon size={18} className={iconColor} />
+      <div className={`w-11 h-11 rounded-xl flex items-center justify-center mb-4 ${iconBg}`}>
+        <Icon size={20} className={iconColor} />
       </div>
-      <p className="font-semibold text-sm text-brand-dark">{title}</p>
-      <p className="text-xs text-gray-500 mt-1 mb-3">{description}</p>
-      <span className={`text-xs font-medium flex items-center gap-1 ${linkColor}`}>
-        {linkText} <ArrowRight size={13} />
+      <p className="font-display font-bold text-sm text-brand-dark">{title}</p>
+      <p className="text-sm text-gray-500 mt-1.5 mb-4 leading-relaxed">{description}</p>
+      <span className={`text-sm font-semibold flex items-center gap-1.5 ${linkColor}`}>
+        {linkText}
+        <ArrowRight size={14} className="group-hover:translate-x-1" />
       </span>
     </Link>
   );

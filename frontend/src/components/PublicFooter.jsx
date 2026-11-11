@@ -6,17 +6,24 @@ import { Droplet, Phone, MapPin, Send, AtSign, Rss } from 'lucide-react';
 
 export default function PublicFooter() {
   return (
-    <footer className="bg-brand-red text-white px-6 py-12">
-      <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-5 gap-8">
+    <footer className="relative bg-gradient-to-b from-brand-maroon to-brand-maroon-dark text-white px-4 sm:px-6 lg:px-8 pt-14 pb-8">
+      {/* Thin crimson accent along the top edge */}
+      <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-brand-red via-red-400 to-brand-red" />
+
+      <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-5 gap-x-6 gap-y-10">
         <div className="col-span-2">
-          <div className="flex items-center gap-2 mb-2">
-            <Droplet size={20} fill="white" />
+          <div className="flex items-center gap-3 mb-3">
+            <span className="w-10 h-10 rounded-xl bg-white/10 ring-1 ring-white/15 flex items-center justify-center">
+              <Droplet size={20} fill="white" />
+            </span>
             <div>
-              <p className="font-bold text-sm leading-tight">SMART BLOOD DONATION SYSTEM</p>
-              <p className="text-[10px] text-white/70">FOR PESHAWAR</p>
+              <p className="font-display font-extrabold text-sm leading-tight tracking-tight">
+                SMART BLOOD DONATION SYSTEM
+              </p>
+              <p className="text-[10px] text-white/60 tracking-[0.2em] font-semibold">FOR PESHAWAR</p>
             </div>
           </div>
-          <p className="text-xs text-white/70 mt-3">Save Lives. Be a Hero.</p>
+          <p className="text-sm text-white/70 mt-4 max-w-xs">Save Lives. Be a Hero.</p>
         </div>
 
         <FooterLinks
@@ -38,15 +45,15 @@ export default function PublicFooter() {
           ]}
         />
 
-        <div>
-          <p className="font-semibold text-sm mb-2">Contact Us</p>
-          <p className="text-xs text-white/80 flex items-center gap-1.5 mb-1.5">
-            <MapPin size={12} /> Peshawar, Khyber Pakhtunkhwa
+        <div className="col-span-2 md:col-span-1">
+          <p className="font-display font-bold text-sm mb-4">Contact Us</p>
+          <p className="text-sm text-white/75 flex items-start gap-2 mb-2.5">
+            <MapPin size={15} className="mt-0.5 shrink-0" /> Peshawar, Khyber Pakhtunkhwa
           </p>
-          <p className="text-xs text-white/80 flex items-center gap-1.5 mb-1.5">
-            <Phone size={12} /> +92 300 1234567
+          <p className="text-sm text-white/75 flex items-center gap-2 mb-2.5">
+            <Phone size={15} className="shrink-0" /> +92 300 1234567
           </p>
-          <div className="flex gap-2 mt-3">
+          <div className="flex gap-2 mt-4">
             <SocialIcon icon={Send} />
             <SocialIcon icon={AtSign} />
             <SocialIcon icon={Rss} />
@@ -54,7 +61,7 @@ export default function PublicFooter() {
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto border-t border-white/20 mt-8 pt-4 text-xs text-white/60">
+      <div className="max-w-7xl mx-auto border-t border-white/10 mt-12 pt-6 text-xs text-white/50">
         &copy; {new Date().getFullYear()} Smart Blood Donation System. All rights reserved.
       </div>
     </footer>
@@ -64,11 +71,11 @@ export default function PublicFooter() {
 function FooterLinks({ title, links }) {
   return (
     <div>
-      <p className="font-semibold text-sm mb-2">{title}</p>
-      <ul className="space-y-1.5">
+      <p className="font-display font-bold text-sm mb-4">{title}</p>
+      <ul className="space-y-2.5">
         {links.map((link) => (
           <li key={link.label}>
-            <Link to={link.to} className="text-xs text-white/80 hover:text-white hover:underline">
+            <Link to={link.to} className="text-sm text-white/70 hover:text-white">
               {link.label}
             </Link>
           </li>
@@ -80,8 +87,8 @@ function FooterLinks({ title, links }) {
 
 function SocialIcon({ icon: Icon }) {
   return (
-    <div className="w-7 h-7 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition-colors cursor-pointer">
-      <Icon size={13} />
+    <div className="w-9 h-9 rounded-full bg-white/10 ring-1 ring-white/10 flex items-center justify-center hover:bg-brand-red hover:ring-brand-red cursor-pointer">
+      <Icon size={15} />
     </div>
   );
 }

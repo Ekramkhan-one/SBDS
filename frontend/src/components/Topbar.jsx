@@ -85,7 +85,7 @@ export default function Topbar({ onMenuClick = () => {} }) {
   };
 
   return (
-    <header className="bg-white border-b border-gray-200 px-3 sm:px-6 py-3 flex items-center gap-2 sm:gap-4 sticky top-0 z-20">
+    <header className="bg-white/85 backdrop-blur-md border-b border-gray-100 px-3 sm:px-6 py-3 flex items-center gap-2 sm:gap-4 sticky top-0 z-20">
       {/* Hamburger: opens the sidebar drawer below lg */}
       <button
         type="button"
