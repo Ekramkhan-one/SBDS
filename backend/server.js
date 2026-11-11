@@ -48,6 +48,7 @@ app.use('/api/donors', require('./routes/donorRoutes'));
 app.use('/api/emergency', require('./routes/emergencyRoutes'));
 app.use('/api/admin', require('./routes/adminRoutes'));
 app.use('/api/contact', require('./routes/contactRoutes'));
+app.use('/api/notifications', require('./routes/notificationRoutes'));
 
 // Simple health check route - useful for confirming the API is alive
 // after deploying

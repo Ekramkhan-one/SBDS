@@ -2,6 +2,7 @@
 // Public emergency request bulletin board - create, list, and close requests.
 
 const EmergencyRequest = require('../models/EmergencyRequest');
+const { notifyMatchingDonors } = require('../utils/notifyDonors');
 
 // @desc    Create a new emergency request
 // @route   POST /api/emergency
@@ -43,7 +44,16 @@ const createEmergencyRequest = async (req, res) => {
       additionalNotes
     });
 
-    res.status(201).json(request);
+    // Automatically alert matching donors. A failure here must never stop
+    // the request from being created, so it is caught separately.
+    let notifiedDonors = 0;
+    try {
+      notifiedDonors = await notifyMatchingDonors(request);
+    } catch (notifyError) {
+      console.error('Donor notification failed:', notifyError.message);
+    }
+
+    res.status(201).json({ ...request.toObject(), notifiedDonors });
   } catch (error) {
     if (error.name === 'ValidationError') {
       const messages = Object.values(error.errors).map((e) => e.message);
