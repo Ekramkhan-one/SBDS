@@ -120,33 +120,33 @@ export default function AdminDashboardView() {
               {pendingDonors.map((donor) => (
                 <div
                   key={donor._id}
-                  className="flex items-center justify-between border border-gray-100 rounded-lg p-3"
+                  className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border border-gray-100 rounded-lg p-3"
                 >
-                  <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-full bg-brand-maroon text-white flex items-center justify-center font-semibold text-sm">
+                  <div className="flex items-center gap-3 min-w-0">
+                    <div className="w-9 h-9 rounded-full bg-brand-maroon text-white flex items-center justify-center font-semibold text-sm shrink-0">
                       {donor.fullName.charAt(0)}
                     </div>
-                    <div>
-                      <p className="text-sm font-medium text-brand-dark">{donor.fullName}</p>
-                      <p className="text-xs text-gray-400 flex items-center gap-1">
+                    <div className="min-w-0">
+                      <p className="text-sm font-medium text-brand-dark truncate">{donor.fullName}</p>
+                      <p className="text-xs text-gray-400 flex items-center gap-1 flex-wrap">
                         CNIC: {donor.cnicNumber} &middot;
                         <MapPin size={11} /> {donor.area}
                         <span className="text-brand-red font-semibold ml-1">{donor.bloodGroup}</span>
                       </p>
                     </div>
                   </div>
-                  <div className="flex gap-2">
+                  <div className="flex gap-2 shrink-0">
                     <button
                       onClick={() => handleVerify(donor._id)}
                       disabled={actioningId === donor._id}
-                      className="flex items-center gap-1 bg-status-available text-white text-xs font-medium px-3 py-1.5 rounded-md hover:opacity-90 disabled:opacity-50"
+                      className="flex items-center gap-1 bg-status-available text-white text-xs font-medium px-3 py-1.5 rounded-md hover:opacity-90 disabled:opacity-50 whitespace-nowrap"
                     >
                       <CheckCircle2 size={13} /> Verify
                     </button>
                     <button
                       onClick={() => handleReject(donor._id)}
                       disabled={actioningId === donor._id}
-                      className="flex items-center gap-1 bg-gray-100 text-gray-600 text-xs font-medium px-3 py-1.5 rounded-md hover:bg-gray-200 disabled:opacity-50"
+                      className="flex items-center gap-1 bg-gray-100 text-gray-600 text-xs font-medium px-3 py-1.5 rounded-md hover:bg-gray-200 disabled:opacity-50 whitespace-nowrap"
                     >
                       <XCircle size={13} /> Skip
                     </button>

@@ -104,15 +104,23 @@ export default function Topbar({ onMenuClick = () => {} }) {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search donors..."
-            className="w-full border border-gray-300 rounded-lg pl-9 pr-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-red sm:hidden"
+            className="w-full border border-gray-300 rounded-lg pl-9 pr-16 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-red sm:hidden"
           />
           <input
             type="text"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search donors by blood group, area or BRT station..."
-            className="w-full border border-gray-300 rounded-lg pl-9 pr-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-red hidden sm:block"
+            className="w-full border border-gray-300 rounded-lg pl-9 pr-20 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-red hidden sm:block"
           />
+          <button
+            type="submit"
+            aria-label="Search"
+            className="absolute right-1 top-1/2 -translate-y-1/2 flex items-center gap-1.5 bg-brand-red hover:bg-brand-red-dark text-white text-xs font-semibold px-2.5 sm:px-3.5 py-1.5 rounded-md"
+          >
+            <Search size={13} className="sm:hidden" />
+            <span className="hidden sm:inline">Search</span>
+          </button>
         </div>
       </form>
 
