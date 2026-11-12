@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { Mail, ArrowLeft } from 'lucide-react';
 import AuthBackdrop from '../components/AuthBackdrop';
 import AuthHeader from '../components/AuthHeader';
+import PublicNavbar from '../components/PublicNavbar';
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState('');
@@ -19,13 +20,15 @@ export default function ForgotPasswordPage() {
   };
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center py-12 px-4">
-      <AuthBackdrop />
+    <div className="relative min-h-screen flex flex-col">
+      <PublicNavbar />
+      <div className="relative flex-1 flex items-center justify-center py-12 px-4">
+        <AuthBackdrop />
 
-      <div className="w-full max-w-md">
-        <AuthHeader />
+        <div className="w-full max-w-md animate-fade-up">
+          <AuthHeader />
 
-        <div className="bg-white rounded-2xl shadow-xl p-7">
+          <div className="bg-white rounded-2xl shadow-xl p-7">
           <h2 className="text-xl font-bold text-brand-dark text-center">Reset Password</h2>
           <p className="text-sm text-gray-500 text-center mt-1 mb-6">
             Enter your email and we'll send you a reset link
@@ -64,6 +67,7 @@ export default function ForgotPasswordPage() {
           >
             <ArrowLeft size={14} /> Back to Login
           </Link>
+          </div>
         </div>
       </div>
     </div>

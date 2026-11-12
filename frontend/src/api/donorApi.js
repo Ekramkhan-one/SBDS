@@ -21,6 +21,7 @@ export const fetchDonors = async (filters = {}) => {
   if (filters.area) params.append('area', filters.area);
   if (filters.brtStation) params.append('brtStation', filters.brtStation);
   if (filters.verifiedOnly) params.append('verifiedOnly', 'true');
+  if (filters.q) params.append('q', filters.q);
 
   const { data } = await axiosInstance.get(`/donors?${params.toString()}`);
   return data;

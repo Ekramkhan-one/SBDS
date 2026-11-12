@@ -6,6 +6,7 @@ import { Mail, Lock, Eye, EyeOff, LogIn } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import AuthBackdrop from '../components/AuthBackdrop';
 import AuthHeader from '../components/AuthHeader';
+import PublicNavbar from '../components/PublicNavbar';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -36,13 +37,15 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center py-12 px-4">
-      <AuthBackdrop />
+    <div className="relative min-h-screen flex flex-col">
+      <PublicNavbar />
+      <div className="relative flex-1 flex items-center justify-center py-12 px-4">
+        <AuthBackdrop />
 
-      <div className="w-full max-w-md">
-        <AuthHeader />
+        <div className="w-full max-w-md animate-fade-up">
+          <AuthHeader />
 
-        <div className="bg-white rounded-2xl shadow-xl p-7">
+          <div className="bg-white rounded-2xl shadow-xl p-7">
           <h2 className="text-xl font-bold text-brand-dark text-center">Welcome Back!</h2>
           <p className="text-sm text-gray-500 text-center mt-1 mb-6">
             Login to continue to your account
@@ -130,6 +133,7 @@ export default function LoginPage() {
               Sign Up
             </Link>
           </p>
+          </div>
         </div>
       </div>
     </div>

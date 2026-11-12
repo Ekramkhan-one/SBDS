@@ -9,6 +9,7 @@ import { useAuth } from '../context/AuthContext';
 import { BLOOD_GROUPS, PESHAWAR_AREAS, BRT_STATIONS } from '../data/peshawarData';
 import AuthBackdrop from '../components/AuthBackdrop';
 import AuthHeader from '../components/AuthHeader';
+import PublicNavbar from '../components/PublicNavbar';
 
 const initialFormState = {
   fullName: '',
@@ -65,13 +66,15 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center py-12 px-4">
-      <AuthBackdrop />
+    <div className="relative min-h-screen flex flex-col">
+      <PublicNavbar />
+      <div className="relative flex-1 flex items-center justify-center py-12 px-4">
+        <AuthBackdrop />
 
-      <div className="w-full max-w-2xl">
-        <AuthHeader />
+        <div className="w-full max-w-2xl animate-fade-up">
+          <AuthHeader />
 
-        <div className="bg-white rounded-2xl shadow-xl p-7">
+          <div className="bg-white rounded-2xl shadow-xl p-7">
           <h2 className="text-xl font-bold text-brand-dark text-center">Create Account</h2>
           <p className="text-sm text-gray-500 text-center mt-1 mb-6">
             Join us and help save more lives
@@ -238,6 +241,7 @@ export default function RegisterPage() {
               Login
             </Link>
           </p>
+          </div>
         </div>
       </div>
     </div>

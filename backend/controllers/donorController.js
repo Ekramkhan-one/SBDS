@@ -8,7 +8,7 @@ const User = require('../models/User');
 // @access  Public
 const getDonors = async (req, res) => {
   try {
-    const { bloodGroup, area, brtStation, verifiedOnly } = req.query;
+    const { bloodGroup, area, brtStation, verifiedOnly, q } = req.query;
 
     // Build a dynamic filter object based on which query params were sent.
     // Always restrict to role: 'donor' and Available status, since a
@@ -32,6 +32,21 @@ const getDonors = async (req, res) => {
 
     if (verifiedOnly === 'true') {
       filter.isVerified = true;
+    }
+
+    // Free-text search (e.g. from the top-bar search box): matches a typed
+    // word like "O+", "Hayatabad" or a donor's name against several fields
+    // at once, so the person doesn't need to know which dropdown it belongs in.
+    if (q && q.trim()) {
+      // Escape regex special characters so a search like "A+" is treated literally
+      const safeQuery = q.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const pattern = new RegExp(safeQuery, 'i');
+      filter.$or = [
+        { fullName: pattern },
+        { bloodGroup: pattern },
+        { area: pattern },
+        { preferredBrtStation: pattern }
+      ];
     }
 
     // Never return password/cnicNumber in a public listing - CNIC is sensitive PII,

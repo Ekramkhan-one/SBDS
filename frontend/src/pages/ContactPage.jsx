@@ -39,7 +39,7 @@ export default function ContactPage() {
     <div className="min-h-screen bg-gray-50">
       <PublicNavbar />
 
-      <div className="max-w-5xl mx-auto px-6 py-12">
+      <div className="max-w-5xl mx-auto px-6 py-12 animate-fade-up">
         <h1 className="text-2xl font-bold text-brand-dark">Contact Us</h1>
         <p className="text-xs text-gray-400 mt-1">Home &gt; Contact Us</p>
 

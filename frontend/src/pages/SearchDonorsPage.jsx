@@ -1,7 +1,8 @@
 // src/pages/SearchDonorsPage.jsx
-// Donor search/directory page with Blood Group, Area, and BRT Station filters.
-// Reads initial filters from the URL query string so links from the homepage
-// search bar (or a shared link) land with filters already applied.
+// Donor search/directory page with a free-text search box plus Blood Group,
+// Area, and BRT Station filters. Reads initial filters from the URL query
+// string so links from the homepage search bar, the top-bar search box, or a
+// shared link land with filters already applied.
 
 import { useEffect, useState, useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
@@ -14,6 +15,7 @@ import { BLOOD_GROUPS, PESHAWAR_AREAS, BRT_STATIONS } from '../data/peshawarData
 export default function SearchDonorsPage() {
   const [searchParams] = useSearchParams();
 
+  const [query, setQuery] = useState(searchParams.get('q') || '');
   const [bloodGroup, setBloodGroup] = useState(searchParams.get('bloodGroup') || '');
   const [area, setArea] = useState(searchParams.get('area') || '');
   const [brtStation, setBrtStation] = useState(searchParams.get('brtStation') || '');
@@ -36,9 +38,10 @@ export default function SearchDonorsPage() {
   }, []);
 
   // Run search on mount, honoring any filters that arrived via the URL
-  // (e.g. from the homepage's quick search bar).
+  // (e.g. from the homepage's quick search bar or the top-bar search box).
   useEffect(() => {
     runSearch({
+      q: searchParams.get('q') || '',
       bloodGroup: searchParams.get('bloodGroup') || '',
       area: searchParams.get('area') || '',
       brtStation: searchParams.get('brtStation') || ''
@@ -48,10 +51,11 @@ export default function SearchDonorsPage() {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    runSearch({ bloodGroup, area, brtStation });
+    runSearch({ q: query, bloodGroup, area, brtStation });
   };
 
   const handleReset = () => {
+    setQuery('');
     setBloodGroup('');
     setArea('');
     setBrtStation('');
@@ -60,77 +64,85 @@ export default function SearchDonorsPage() {
 
   return (
     <DashboardLayout>
-      <div className="space-y-5">
+      <div className="space-y-5 animate-fade-up">
         <div>
-          <h1 className="text-xl font-bold text-brand-dark">Search Donors</h1>
-          <p className="text-sm text-gray-500">Find donors by blood group, area or BRT station.</p>
+          <h1 className="text-xl font-display font-bold text-brand-dark">Search Donors</h1>
+          <p className="text-sm text-gray-500">
+            Search by name, blood group, area or BRT station — or narrow it down with the filters.
+          </p>
         </div>
 
         {/* Filter bar */}
         <form
           onSubmit={handleSearch}
-          className="bg-white border border-gray-200 rounded-xl p-4 grid grid-cols-1 md:grid-cols-4 gap-3"
+          className="bg-white border border-gray-100 shadow-soft rounded-2xl p-4 space-y-3"
         >
-          <select
-            value={bloodGroup}
-            onChange={(e) => setBloodGroup(e.target.value)}
-            className="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-red"
-          >
-            <option value="">Blood Group</option>
-            {BLOOD_GROUPS.map((bg) => (
-              <option key={bg} value={bg}>
-                {bg}
-              </option>
-            ))}
-          </select>
+          <div className="relative">
+            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+            <input
+              type="text"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Search by name, blood group (e.g. O+), area or BRT station..."
+              className="field pl-9"
+            />
+          </div>
 
-          <select
-            value={area}
-            onChange={(e) => setArea(e.target.value)}
-            className="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-red"
-          >
-            <option value="">Area in Peshawar</option>
-            {PESHAWAR_AREAS.map((a) => (
-              <option key={a} value={a}>
-                {a}
-              </option>
-            ))}
-          </select>
-
-          <select
-            value={brtStation}
-            onChange={(e) => setBrtStation(e.target.value)}
-            className="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-red"
-          >
-            <option value="">BRT Station</option>
-            {BRT_STATIONS.map((station) => (
-              <option key={station} value={station}>
-                {station}
-              </option>
-            ))}
-          </select>
-
-          <div className="flex gap-2">
-            <button
-              type="submit"
-              className="flex-1 flex items-center justify-center gap-1.5 bg-brand-red hover:bg-brand-red-dark text-white text-sm font-medium rounded-lg transition-colors"
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
+            <select
+              value={bloodGroup}
+              onChange={(e) => setBloodGroup(e.target.value)}
+              className="field"
             >
-              <Search size={15} /> Search
-            </button>
-            <button
-              type="button"
-              onClick={handleReset}
-              title="Reset filters"
-              className="px-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+              <option value="">Blood Group</option>
+              {BLOOD_GROUPS.map((bg) => (
+                <option key={bg} value={bg}>
+                  {bg}
+                </option>
+              ))}
+            </select>
+
+            <select value={area} onChange={(e) => setArea(e.target.value)} className="field">
+              <option value="">Area in Peshawar</option>
+              {PESHAWAR_AREAS.map((a) => (
+                <option key={a} value={a}>
+                  {a}
+                </option>
+              ))}
+            </select>
+
+            <select
+              value={brtStation}
+              onChange={(e) => setBrtStation(e.target.value)}
+              className="field"
             >
-              <RotateCcw size={15} className="text-gray-500" />
-            </button>
+              <option value="">BRT Station</option>
+              {BRT_STATIONS.map((station) => (
+                <option key={station} value={station}>
+                  {station}
+                </option>
+              ))}
+            </select>
+
+            <div className="flex gap-2">
+              <button type="submit" className="btn-primary flex-1 !py-2.5">
+                <Search size={15} /> Search
+              </button>
+              <button
+                type="button"
+                onClick={handleReset}
+                title="Reset filters"
+                className="px-3 border border-gray-200 rounded-xl hover:bg-gray-50"
+              >
+                <RotateCcw size={15} className="text-gray-500" />
+              </button>
+            </div>
           </div>
         </form>
 
         {/* Result count */}
         {hasSearched && !loading && (
-          <div className="bg-green-50 text-status-available text-sm font-medium px-4 py-2 rounded-lg inline-block">
+          <div className="bg-brand-blush text-brand-red text-sm font-medium px-4 py-2 rounded-lg inline-block">
             {donors.length} donor{donors.length !== 1 ? 's' : ''} found
           </div>
         )}
@@ -139,15 +151,19 @@ export default function SearchDonorsPage() {
         {loading ? (
           <p className="text-center text-gray-400 py-10">Searching...</p>
         ) : donors.length === 0 ? (
-          <div className="bg-white border border-gray-200 rounded-xl p-10 text-center text-gray-400">
+          <div className="bg-white border border-gray-100 shadow-soft rounded-2xl p-10 text-center text-gray-400">
             No donors match these filters yet. Try broadening your search.
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {donors.map((donor) => (
-              <div key={donor._id} className="bg-white border border-gray-200 rounded-xl p-4">
+            {donors.map((donor, index) => (
+              <div
+                key={donor._id}
+                style={{ animationDelay: `${Math.min(index, 8) * 50}ms` }}
+                className="animate-fade-up bg-white border border-gray-100 shadow-soft hover:-translate-y-1 hover:shadow-lift rounded-2xl p-4"
+              >
                 <div className="flex items-center gap-3">
-                  <div className="w-11 h-11 rounded-full bg-brand-maroon text-white flex items-center justify-center font-semibold">
+                  <div className="w-11 h-11 rounded-full bg-gradient-to-br from-brand-maroon to-brand-maroon-dark text-white flex items-center justify-center font-semibold">
                     {donor.fullName.charAt(0)}
                   </div>
                   <div>
@@ -179,7 +195,7 @@ export default function SearchDonorsPage() {
                   href={buildWhatsAppLink(donor.phoneNumber, donor.fullName)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-3 w-full flex items-center justify-center gap-1.5 bg-status-available hover:opacity-90 text-white text-xs font-medium py-2 rounded-lg transition-opacity"
+                  className="mt-3 w-full flex items-center justify-center gap-1.5 bg-status-available hover:opacity-90 text-white text-xs font-medium py-2 rounded-lg"
                 >
                   <MessageCircle size={14} /> WhatsApp
                 </a>

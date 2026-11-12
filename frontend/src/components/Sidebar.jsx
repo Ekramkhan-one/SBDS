@@ -15,6 +15,7 @@ import {
   Search,
   Bell,
   MessageCircle,
+  Mail,
   User,
   ShieldCheck,
   BarChart3,
@@ -32,6 +33,7 @@ const navItems = [
   { to: '/communication', label: 'Communication', icon: MessageCircle, badge: 'New' },
   { to: '/profile', label: 'My Profile', icon: User },
   { to: '/admin', label: 'Admin Panel', icon: ShieldCheck, adminOnly: true },
+  { to: '/messages', label: 'Contact Messages', icon: Mail, adminOnly: true },
   { to: '/reports', label: 'Reports & Analytics', icon: BarChart3, adminOnly: true },
   { to: '/settings', label: 'Settings', icon: Settings },
   { to: '/help', label: 'Help & Support', icon: HelpCircle }

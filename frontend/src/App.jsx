@@ -9,6 +9,7 @@
 // Admin-only pages are additionally wrapped in AdminRoute.
 
 import { Routes, Route } from 'react-router-dom';
+import PageTransition from './components/PageTransition';
 import ProtectedRoute from './components/ProtectedRoute';
 import AdminRoute from './components/AdminRoute';
 import LoginPage from './pages/LoginPage';
@@ -22,6 +23,7 @@ import SearchDonorsPage from './pages/SearchDonorsPage';
 import EmergencyRequestsPage from './pages/EmergencyRequestsPage';
 import ProfilePage from './pages/ProfilePage';
 import DonorManagementPage from './pages/DonorManagementPage';
+import ContactMessagesPage from './pages/ContactMessagesPage';
 import CommunicationPage from './pages/CommunicationPage';
 import ReportsPage from './pages/ReportsPage';
 import SettingsPage from './pages/SettingsPage';
@@ -30,7 +32,8 @@ import PlaceholderPage from './pages/PlaceholderPage';
 
 function App() {
   return (
-    <Routes>
+    <PageTransition>
+      <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/about" element={<AboutPage />} />
       <Route path="/contact" element={<ContactPage />} />
@@ -121,12 +124,21 @@ function App() {
           </AdminRoute>
         }
       />
+      <Route
+        path="/messages"
+        element={
+          <AdminRoute>
+            <ContactMessagesPage />
+          </AdminRoute>
+        }
+      />
 
       {/* Remaining footer placeholder pages */}
       <Route path="/privacy-policy" element={<PlaceholderPage title="Privacy Policy" />} />
       <Route path="/terms" element={<PlaceholderPage title="Terms & Conditions" />} />
       <Route path="/how-it-works" element={<PlaceholderPage title="How It Works" />} />
-    </Routes>
+      </Routes>
+    </PageTransition>
   );
 }
 
