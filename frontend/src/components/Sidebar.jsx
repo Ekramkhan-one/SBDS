@@ -42,20 +42,20 @@ const navItems = [
 export default function Sidebar({ user, isOpen = false, onClose = () => {} }) {
   return (
     <aside
-      className={`w-64 h-screen fixed top-0 shrink-0 bg-gradient-to-b from-brand-maroon to-brand-maroon-dark text-white flex flex-col
+      className={`w-64 shrink-0 bg-gradient-to-b from-brand-maroon to-brand-maroon-dark text-white flex flex-col
         fixed inset-y-0 left-0 z-40 transition-transform duration-500 ease-in-out
         ${isOpen ? 'translate-x-0' : '-translate-x-full'}
         lg:translate-x-0 lg:z-30`}
     >
       {/* Logo header */}
-      <div className="px-5 py-5 flex items-center gap-3 border-b border-white/10">
-        <div className="bg-white/10 p-2 rounded-lg">
-          <Droplet size={22} className="text-white" fill="white" fillOpacity={0.9} />
+      <div className="px-5 py-4 flex items-center gap-3 border-b border-white/10 shrink-0">
+        <div className="bg-white/10 p-2 rounded-lg shrink-0">
+          <Droplet size={20} className="text-white" fill="white" fillOpacity={0.9} />
         </div>
-        <div className="leading-tight flex-1">
-          <p className="font-bold text-sm">SMART BLOOD</p>
-          <p className="font-bold text-sm">DONATION SYSTEM</p>
-          <p className="text-[10px] text-white/60 tracking-wide">FOR PESHAWAR</p>
+        <div className="leading-tight flex-1 min-w-0">
+          <p className="font-bold text-xs">SMART BLOOD</p>
+          <p className="font-bold text-xs">DONATION SYSTEM</p>
+          <p className="text-[9px] text-white/60 tracking-wide">FOR PESHAWAR</p>
         </div>
         {/* Close button - only shown while it works as a drawer */}
         <button
@@ -69,7 +69,7 @@ export default function Sidebar({ user, isOpen = false, onClose = () => {} }) {
       </div>
 
       {/* Nav links */}
-      <nav className="flex-1 overflow-y-auto sidebar-scroll py-3 px-3 space-y-1">
+      <nav className="flex-1 min-h-0 overflow-y-auto sidebar-scroll py-3 px-3 space-y-1">
         {navItems
           .filter((item) => !item.adminOnly || user?.isAdmin)
           .map(({ to, label, icon: Icon, badge }) => (
@@ -99,7 +99,7 @@ export default function Sidebar({ user, isOpen = false, onClose = () => {} }) {
       </nav>
 
       {/* Emergency CTA box */}
-      <div className="m-3 bg-gradient-to-br from-brand-red to-brand-red-dark rounded-2xl p-4 shadow-glow">
+      <div className="m-3 shrink-0 bg-gradient-to-br from-brand-red to-brand-red-dark rounded-2xl p-4 shadow-glow">
         <p className="font-semibold text-sm">In Emergency?</p>
         <p className="text-xs text-white/80 mt-0.5">Every Second Counts</p>
         <NavLink
