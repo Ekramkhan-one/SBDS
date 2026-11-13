@@ -42,10 +42,10 @@ const navItems = [
 export default function Sidebar({ user, isOpen = false, onClose = () => {} }) {
   return (
     <aside
-      className={`w-64 shrink-0 bg-gradient-to-b from-brand-maroon to-brand-maroon-dark text-white flex flex-col
-        fixed inset-y-0 left-0 z-40 transition-transform duration-200 ease-in-out
+      className={`w-64 h-screen sticky top-0 shrink-0 bg-gradient-to-b from-brand-maroon to-brand-maroon-dark text-white flex flex-col
+         inset-y-0 left-0 z-40 transition-transform duration-500 ease-in-out
         ${isOpen ? 'translate-x-0' : '-translate-x-full'}
-        lg:translate-x-0 lg:sticky lg:top-0 lg:bottom-auto lg:h-screen lg:z-auto`}
+        lg:translate-x-0 lg:z-30`}
     >
       {/* Logo header */}
       <div className="px-5 py-5 flex items-center gap-3 border-b border-white/10">

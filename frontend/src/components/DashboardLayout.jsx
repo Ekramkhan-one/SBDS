@@ -45,7 +45,7 @@ export default function DashboardLayout({ children, notificationCount }) {
         />
       )}
 
-      <div className="flex-1 flex flex-col min-w-0">
+      <div className="flex-1 flex flex-col min-w-0 lg:ml-64">
         <Topbar
           notificationCount={notificationCount}
           onMenuClick={() => setSidebarOpen(true)}
